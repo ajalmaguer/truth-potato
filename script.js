@@ -12,8 +12,8 @@ var textInput = document.getElementById('textInput');
 var text = 'Not everyone likes you';
 
 // setup canvas
-canvas.width = window.innerWidth;
-canvas.height = window.innerWidth;
+canvas.width = canvasWidth();
+canvas.height = canvasWidth();
 
 // load default image
 var selectedPotato = potatoes[0];
@@ -74,4 +74,9 @@ function pickNewPotato() {
     var randomPotatoIndex = Math.floor(potatoes.length * Math.random());
     selectedPotato = potatoes[randomPotatoIndex];
     renderText(text)
+}
+
+function canvasWidth() {
+    var maxWidth = 740;
+    return window.innerWidth < maxWidth ? window.innerWidth : maxWidth;
 }
