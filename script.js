@@ -1,10 +1,12 @@
 var canvas = document.getElementById('potatoCanvas');
 var context = canvas.getContext('2d');
-
+var targetImg = document.getElementById('target');
 
 var imageObj = new Image();
+
 imageObj.onload = function () {
     context.imageSmoothingEnabled = false;
+    imageObj.setAttribute('crossOrigin', 'anonymous')
     
     canvas.width = window.innerWidth;
     canvas.height = window.innerWidth;
@@ -12,7 +14,7 @@ imageObj.onload = function () {
     addImage(imageObj);
 };
 
-imageObj.src = 'potato_1.png';
+imageObj.src = './potato_1.png';
 
 
 const myFont = new FontFace('annie', 'url(https://fonts.gstatic.com/s/annieuseyourtelescope/v8/daaLSS4tI2qYYl3Jq9s_Hu74xwktnlKxH6osGVGTkz3A_0YFZQ.woff2)');
@@ -22,6 +24,7 @@ myFont.load().then((font) => {
     context.textAlign = 'center';
     renderTitle();
     renderText('Not everyone likes you.');
+    convertCanvasToImage()
     
 });
 
@@ -31,6 +34,7 @@ document.getElementById('txt').addEventListener('change', function (e) {
     addImage(imageObj);
     renderTitle();
     renderText(e.target.value);
+    convertCanvasToImage()
 })
 
 
@@ -54,4 +58,10 @@ function addImage(imageObj) {
 
 function clearCanvas() {
     context.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function convertCanvasToImage() {
+	var image = new Image();
+    targetImg.src = canvas.toDataURL("image/png");
+	// return image;
 }

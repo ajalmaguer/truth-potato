@@ -20,6 +20,7 @@ body {
     /* border: 1px solid red; */
     /* width: 100vw;
     height: 100vw; */
+    display: none;
 }
 
 #txt {
