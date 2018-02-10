@@ -71,8 +71,17 @@ function convertCanvasToImage() {
 }
 
 function pickNewPotato() {
-    var randomPotatoIndex = Math.floor(potatoes.length * Math.random());
-    selectedPotato = potatoes[randomPotatoIndex];
+    var oldPotato = selectedPotato;
+
+    for (let i = 0; i < 5; i++) {
+        var randomPotatoIndex = Math.floor(potatoes.length * Math.random());
+        selectedPotato = potatoes[randomPotatoIndex];
+        
+        if (selectedPotato !== oldPotato) {
+            break;
+        }
+    }
+
     renderText(text)
 }
 
