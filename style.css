@@ -31,6 +31,7 @@ body {
     padding-bottom: 10px;
     position: fixed;
     bottom: 0px;
+    left: 0px;
 }
 
 #txt:focus {
