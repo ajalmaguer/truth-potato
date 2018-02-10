@@ -1,48 +1,53 @@
+// inspiration: 
+// @truth.potato
+// https://www.instagram.com/truth.potato/?hl=en
+// https://www.boredpanda.com/bitter-wisdom-truth-potato/
+
+// global variables
 var canvas = document.getElementById('potatoCanvas');
 var context = canvas.getContext('2d');
 var targetImg = document.getElementById('target');
+var potatoes = Array.from(document.querySelectorAll('.potato'));
+var textInput = document.getElementById('textInput');
+var text = 'Not everyone likes you';
 
-var imageObj = new Image();
+// setup canvas
+canvas.width = window.innerWidth;
+canvas.height = window.innerWidth;
 
-imageObj.onload = function () {
-    context.imageSmoothingEnabled = false;
-    imageObj.setAttribute('crossOrigin', 'anonymous')
-    
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerWidth;
+// load default image
+var selectedPotato = potatoes[0];
 
-    addImage(imageObj);
-};
-
-imageObj.src = './potato_1.png';
-
-
+// load base font
 const myFont = new FontFace('annie', 'url(https://fonts.gstatic.com/s/annieuseyourtelescope/v8/daaLSS4tI2qYYl3Jq9s_Hu74xwktnlKxH6osGVGTkz3A_0YFZQ.woff2)');
 
 myFont.load().then((font) => {
     document.fonts.add(font);
     context.textAlign = 'center';
-    renderTitle();
-    renderText('Not everyone likes you.');
-    convertCanvasToImage()
-    
+    renderText(text);
 });
 
-document.getElementById('txt').addEventListener('change', function (e) {
-    console.log('e =', e.target.value);
-    clearCanvas();
-    addImage(imageObj);
-    renderTitle();
-    renderText(e.target.value);
-    convertCanvasToImage()
+// event listeners
+textInput.addEventListener('change', function (e) {
+    text = e.target.value;
+    renderText(text);
+})
+
+targetImg.addEventListener('click', function () {
+    pickNewPotato();
 })
 
 
 // functions
 function renderText(text) {
+    addImage(selectedPotato);
+    renderTitle();
+
     var fontSize = canvas.height * .04;
     context.font = fontSize + 'pt annie';
     context.fillText(text, canvas.width / 2, canvas.height * .32);
+
+    convertCanvasToImage()
 }
 
 function renderTitle() {
@@ -61,7 +66,12 @@ function clearCanvas() {
 }
 
 function convertCanvasToImage() {
-	var image = new Image();
+    var image = new Image();
     targetImg.src = canvas.toDataURL("image/png");
-	// return image;
+}
+
+function pickNewPotato() {
+    var randomPotatoIndex = Math.floor(potatoes.length * Math.random());
+    selectedPotato = potatoes[randomPotatoIndex];
+    renderText(text)
 }
